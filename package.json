@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/noahlotzer/react-simple-boilerplate.git"
+    "url": "git@github.com:cpfeiffer325/react-project-chatty-app.git"
   },
   "keywords": [
     "react",
@@ -19,12 +19,12 @@
     "edit",
     "webpack"
   ],
-  "author": "Noah-Jerome Lotzer <n.lotzer@neusta.de>",
+  "author": "Christian Pfeiffer",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/noahlotzer/react-simple-boilerplate/issues"
+    "url": "https://github.com/cpfeiffer325/react-project-chatty-app/issues"
   },
-  "homepage": "https://github.com/noahlotzer/react-simple-boilerplate",
+  "homepage": "https://github.com/cpfeiffer325/react-project-chatty-app",
   "engines": {
     "node": ">=6.0.0"
   },
