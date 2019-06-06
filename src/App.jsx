@@ -18,10 +18,20 @@ class App extends Component {
 
   updateCurrentUser(event) {
     if (event.charCode == 13 ) {
-      console.log("event: ",event.target.value);
+      console.log("event: ",event.target);
+      const oldname = this.state.currentUser.name;
       this.setState(
         {currentUser: {name: event.target.value}}
       );
+      const content = `${oldname} changed their name to ${event.target.value}`;
+
+
+      const newUser = {
+        type: "postNotification",
+        content: content
+      };
+    
+      this.socket.send(JSON.stringify(newUser));
     }
   }
 
@@ -29,18 +39,14 @@ class App extends Component {
     if (event.charCode == 13 ) {
       console.log("event: ",event.target);
       const newMessage = {
+        type: "postMessage",
         id: this.state.messages.length + 1,
         username: this.state.currentUser.name, // event.target.previousSibling
         content: event.target.value
       };
 
-    // const newMessages = [...this.state.messages, newMessage];
-
     this.socket.send(JSON.stringify(newMessage));
 
-    // this.setState(
-    //   {messa-ges: newMessages}
-    //   );
       event.target.value = "";
     }
   }
@@ -53,27 +59,41 @@ class App extends Component {
 
       this.socket.onmessage = (event) => {
         console.log(event.data);
-        const msg = JSON.parse(event.data);
-        // code to handle incoming message
 
+        // The socket event data is encoded as a JSON string.
+        // This line turns it into an object
+        const msg = JSON.parse(event.data);
+        console.log(msg);
+        
         const newMessages = [...this.state.messages, msg];
+        console.log(newMessages);
 
         this.setState(
           {messages: newMessages}
           );
         event.target.value = "";
+
+        // switch(msg.type) {
+        //   case "incomingMessage":
+        //     // code to handle incoming message    
+        //     this.setState(
+        //       {messages: newMessages}
+        //       );
+        //     event.target.value = "";
+        //     break;
+        //   case "incomingNotification":
+        //     // handle incoming notification    
+        //     this.setState(
+        //       {messages: newMessages}
+        //       );
+        //     break;
+        //   default:
+        //     // show an error in the console if the message type is unknown
+        //     throw new Error("Unknown event type " + msg.type);
+        //   }
+              
       };
     };
-
-    
-    // setTimeout(() => {
-    //   // Add a new message to the list of messages in the data store
-    //   const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
-    //   const messages = this.state.messages.concat(newMessage);
-    //   // Update the state of the app component.
-    //   // Calling setState will trigger a call to render() in App and all child components.
-    //   this.setState({messages: messages});
-    // }, 500);
   }
 
   render() {

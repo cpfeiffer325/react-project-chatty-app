@@ -9,6 +9,7 @@ export default class MessageList extends Component {
         {this.props.messages.map((message) =>
           <Message 
             key={ message.id }
+            type={ message.type }
             username ={ message.username }
             content ={ message.content} />
         )}

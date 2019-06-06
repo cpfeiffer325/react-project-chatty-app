@@ -24,9 +24,6 @@ wss.broadcast = function broadcast(data) {
   });
 };
 
-
-
-
 // Set up a callback that will run when a client connects to the server
 // When a client connects they are assigned a socket, represented by
 // the ws parameter in the callback.    
@@ -35,9 +32,23 @@ wss.on('connection', (ws) => {
 
   ws.on('message', (event) => {
     const msg = JSON.parse(event);
-    msg.id = uuidv1();
-    console.log(`${msg.username} said ${msg.content}`);
-    
+    switch(msg.type) {
+      case "postMessage":
+        // code to handle incoming message
+        msg.type = "incomingMessage";
+        msg.id = uuidv1();
+        console.log(`${msg.username} said ${msg.content}`);
+        break;
+      case "postNotification":
+        // handle incoming notification
+        msg.type = "incomingNotification";
+        msg.id = uuidv1();
+        console.log(`${msg.content}`);
+        break;
+      default:
+        // show an error in the console if the message type is unknown
+        throw new Error("Unknown event type " + msg.type);
+    }
     wss.broadcast(JSON.stringify(msg));
   });
 
