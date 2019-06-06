@@ -13,11 +13,21 @@ class App extends Component {
       messages: []
     };
     this.postMessage = this.postMessage.bind(this); 
+    this.updateCurrentUser = this.updateCurrentUser.bind(this); 
   }
 
+  updateCurrentUser(event) {
+    if (event.charCode == 13 ) {
+      console.log("event: ",event.target.value);
+      this.setState(
+        {currentUser: {name: event.target.value}}
+      );
+    }
+  }
 
   postMessage(event) {
     if (event.charCode == 13 ) {
+      console.log("event: ",event.target);
       const newMessage = {
         id: this.state.messages.length + 1,
         username: this.state.currentUser.name, // event.target.previousSibling
@@ -52,8 +62,8 @@ class App extends Component {
           {messages: newMessages}
           );
         event.target.value = "";
-      }
-    }
+      };
+    };
 
     
     // setTimeout(() => {
@@ -73,7 +83,7 @@ class App extends Component {
           <a href="/" className="navbar-brand">Chatty</a>
         </nav>
         <MessageList messages = {this.state.messages}/>
-        <ChatBar currentUser = {this.state.currentUser.name} postMessage = {this.postMessage}/>
+        <ChatBar currentUser = {this.state.currentUser.name} postMessage = {this.postMessage} updateCurrentUser = {this.updateCurrentUser}/>
       </div>
     );
   }
