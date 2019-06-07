@@ -1,5 +1,4 @@
 // server.js
-
 const express = require('express');
 const SocketServer = require('ws').Server;
 const uuidv1 = require('uuid');
@@ -17,6 +16,7 @@ const server = express()
 const wss = new SocketServer({ server });
 let connections = 0;
 
+// send oject data to all open connections
 wss.broadcast = function broadcast(data) {
   wss.clients.forEach(function each(client) {
     if (client.readyState === 1) {
@@ -32,17 +32,19 @@ wss.on('connection', (ws) => {
   console.log('Client connected');
   connections++;
 
+  // object to store and send count of open server connections
   const numConnections = {
     type: "countConnections",
     count: connections
-   };
+  };
    
-   console.log("connected clients", connections);
-   wss.broadcast(JSON.stringify(numConnections));
+  console.log("connected clients", connections);
+  wss.broadcast(JSON.stringify(numConnections));
 
   ws.on('message', (event) => {
     const msg = JSON.parse(event);
 
+    // handler to deal with incoming data for either messages or change of users
     switch(msg.type) {
       case "postMessage":
         // code to handle incoming message
@@ -65,13 +67,17 @@ wss.on('connection', (ws) => {
 
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.
   ws.on('close', () => {
+    // Reduce count of open connections
     connections--;
-      const numConnections = {
-        type: "countConnections",
-        count: connections
-       };
+
+    // object to store and send count of open server connections
+    const numConnectionsOnClose = {
+      type: "countConnections",
+      count: connections
+      };
     console.log('Client disconnected');
     console.log("connected clients", connections);
-    wss.broadcast(JSON.stringify(numConnections));
-  })
+    // send count of connections to the app
+    wss.broadcast(JSON.stringify(numConnectionsOnClose));
+  });
 });
