@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import MessageList from "./MessageList.jsx";
 import ChatBar from "./ChatBar.jsx";
+import NavBar from "./NavBar.jsx";
 
 class App extends Component {
   // set initial state of chatty app
@@ -10,7 +11,8 @@ class App extends Component {
     this.state = 
     {
       currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
-      messages: []
+      messages: [],
+      count: 0
     };
     this.postMessage = this.postMessage.bind(this); 
     this.updateCurrentUser = this.updateCurrentUser.bind(this); 
@@ -51,6 +53,7 @@ class App extends Component {
     }
   }
 
+
   componentDidMount() {
     this.socket = new WebSocket("ws://localhost:3001");
 
@@ -62,35 +65,36 @@ class App extends Component {
 
         // The socket event data is encoded as a JSON string.
         // This line turns it into an object
-        const msg = JSON.parse(event.data);
-        console.log(msg);
-        
-        const newMessages = [...this.state.messages, msg];
-        console.log(newMessages);
+        const incomingEvent = JSON.parse(event.data);
+        console.log(incomingEvent);
+      
 
-        this.setState(
-          {messages: newMessages}
-          );
-        event.target.value = "";
-
-        // switch(msg.type) {
-        //   case "incomingMessage":
-        //     // code to handle incoming message    
-        //     this.setState(
-        //       {messages: newMessages}
-        //       );
-        //     event.target.value = "";
-        //     break;
-        //   case "incomingNotification":
-        //     // handle incoming notification    
-        //     this.setState(
-        //       {messages: newMessages}
-        //       );
-        //     break;
-        //   default:
-        //     // show an error in the console if the message type is unknown
-        //     throw new Error("Unknown event type " + msg.type);
-        //   }
+        switch(incomingEvent.type) {
+          case "incomingMessage":
+            // code to handle incoming message 
+            const newMessages = [...this.state.messages, incomingEvent];   
+            this.setState(
+              {messages: newMessages}
+              );
+            event.target.value = "";
+            break;
+          case "incomingNotification":
+              const newUser = [...this.state.messages, incomingEvent];
+            // handle incoming notification    
+            this.setState(
+              {messages: newUser}
+              );
+            break;
+          case "countConnections":
+              // handle incoming count of connections    
+              this.setState(
+                {count: incomingEvent.count}
+              )
+              break;
+          default:
+            // show an error in the console if the message type is unknown
+            throw new Error("Unknown event type " + incomingEvent.type);
+          }
               
       };
     };
@@ -99,9 +103,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar">
-          <a href="/" className="navbar-brand">Chatty</a>
-        </nav>
+        <NavBar count = {this.state.count}/>
         <MessageList messages = {this.state.messages}/>
         <ChatBar currentUser = {this.state.currentUser.name} postMessage = {this.postMessage} updateCurrentUser = {this.updateCurrentUser}/>
       </div>
