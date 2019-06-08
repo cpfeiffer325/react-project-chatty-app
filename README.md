@@ -31,49 +31,43 @@ run start
 ## App - Main Folder
 ### Dependencies
 * [React] (https://reactjs.org/docs/getting-started.html)
-* React-dom
+* [React-dom] (https://www.npmjs.com/package/react-dom)
 
 ### Dev-Dependencies
-* Babel-core
+* [Babel-core] (https://www.npmjs.com/package/babel-core)
 * [Babel-loader](https://github.com/babel/babel-loader)
 * Babel-preset-es2015
 * Babel-preset-react
 * Babel-preset-stage-0
-* Css-loader
+* [Css-loader] (https://www.npmjs.com/package/css-loader)
 * Eslint
 * Eslint-plugin-react
-* Node-sass
-* Sass-loader
-* Sockjs-client
-* Style-loader
-* Webpack
+* [Node-sass] (https://www.npmjs.com/package/node-sass)
+* [Sass-loader] (https://www.npmjs.com/package/sass-loader)
+* [Sockjs-client] (https://www.npmjs.com/package/sockjs-client)
+* [Style-loader] (https://www.npmjs.com/package/style-loader)
+* [Webpack] (https://www.npmjs.com/package/webpack)
 * [Webpack-dev-server](https://github.com/webpack/webpack-dev-server)
 
 ## WebSocket - Server Folder
 ### Dependencies
-* Express
-* UUID
-* WS
+* [Express] (https://www.npmjs.com/package/express)
+* [UUID] (https://www.npmjs.com/package/uuid)
+* [WS] (https://www.npmjs.com/package/websocket)
 
 ## App Functionality
+Primarily a client-side SPA (single-page app) built with ReactJS
+Contains a chat log displaying messages and notifications
+Contains an input field to change your name and an input field to send a message
+The client-side app communicates with a server via WebSockets for multi-user real-time updates
+No persistent database is involved; the focus is on the client-side experience
 
+## App Behaviour
+When any connected user sends a chat message, all connected users receive and display the message
+When any connected user changes their name, all connected users are notified of the name change
+Notifications are styled differently from chat messages
+Header will display the count of connected users
+When the number of connected users changes, this count will be updated for all connected users
 
 ## Screenshot
-
-
-
-
-
-### Static Files
-
-You can store static files like images fonts etc in the `build` folder.
-
-For example if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
-
-### Linting
-
-This boilerplate project includes React ESLint configuration.
-
-```
-npm run lint
-```
+!["Screenshot of Chatty App"] ('./build/chatty-app-screenshot.png')
