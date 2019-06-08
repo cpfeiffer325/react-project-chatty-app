@@ -30,30 +30,30 @@ run start
 
 ## App - Main Folder
 ### Dependencies
-* [React] (https://reactjs.org/docs/getting-started.html)
-* [React-dom] (https://www.npmjs.com/package/react-dom)
+* [React](https://reactjs.org/docs/getting-started.html)
+* [React-dom](https://www.npmjs.com/package/react-dom)
 
 ### Dev-Dependencies
-* [Babel-core] (https://www.npmjs.com/package/babel-core)
+* [Babel-core](https://www.npmjs.com/package/babel-core)
 * [Babel-loader](https://github.com/babel/babel-loader)
 * Babel-preset-es2015
 * Babel-preset-react
 * Babel-preset-stage-0
-* [Css-loader] (https://www.npmjs.com/package/css-loader)
+* [Css-loader](https://www.npmjs.com/package/css-loader)
 * Eslint
 * Eslint-plugin-react
-* [Node-sass] (https://www.npmjs.com/package/node-sass)
-* [Sass-loader] (https://www.npmjs.com/package/sass-loader)
-* [Sockjs-client] (https://www.npmjs.com/package/sockjs-client)
-* [Style-loader] (https://www.npmjs.com/package/style-loader)
-* [Webpack] (https://www.npmjs.com/package/webpack)
+* [Node-sass](https://www.npmjs.com/package/node-sass)
+* [Sass-loader](https://www.npmjs.com/package/sass-loader)
+* [Sockjs-client](https://www.npmjs.com/package/sockjs-client)
+* [Style-loader](https://www.npmjs.com/package/style-loader)
+* [Webpack](https://www.npmjs.com/package/webpack)
 * [Webpack-dev-server](https://github.com/webpack/webpack-dev-server)
 
 ## WebSocket - Server Folder
 ### Dependencies
-* [Express] (https://www.npmjs.com/package/express)
-* [UUID] (https://www.npmjs.com/package/uuid)
-* [WS] (https://www.npmjs.com/package/websocket)
+* [Express](https://www.npmjs.com/package/express)
+* [UUID](https://www.npmjs.com/package/uuid)
+* [WS](https://www.npmjs.com/package/websocket)
 
 ## App Functionality
 Primarily a client-side SPA (single-page app) built with ReactJS
