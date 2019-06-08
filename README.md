@@ -71,3 +71,4 @@ When the number of connected users changes, this count will be updated for all c
 
 ## Screenshot
 !['Screenshot of Chatty App'] ('build/chatty-app-screenshot.png')
+<img scr='build/chatty-app-screenshot.png'>
