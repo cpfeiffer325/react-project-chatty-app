@@ -34,11 +34,13 @@ wss.on('connection', (ws) => {
 
   // object to store and send count of open server connections
   const numConnections = {
-    type: "countConnections",
-    count: connections
+    type: 'countConnections',
+    count: connections,
+    id: uuidv1()
   };
-   
-  console.log("connected clients", connections);
+  
+  // send object with number of connections to app for all users
+  console.log('connected clients', connections);
   wss.broadcast(JSON.stringify(numConnections));
 
   ws.on('message', (event) => {
@@ -46,21 +48,21 @@ wss.on('connection', (ws) => {
 
     // handler to deal with incoming data for either messages or change of users
     switch(msg.type) {
-      case "postMessage":
-        // code to handle incoming message
-        msg.type = "incomingMessage";
+      case 'postMessage':
+        // handle incoming message
+        msg.type = 'incomingMessage';
         msg.id = uuidv1();
         console.log(`${msg.username} said ${msg.content}`);
         break;
-      case "postNotification":
+      case 'postNotification':
         // handle incoming notification
-        msg.type = "incomingNotification";
+        msg.type = 'incomingNotification';
         msg.id = uuidv1();
         console.log(`${msg.content}`);
         break;
       default:
         // show an error in the console if the message type is unknown
-        throw new Error("Unknown event type " + msg.type);
+        throw new Error('Unknown event type ' + msg.type);
     }
     wss.broadcast(JSON.stringify(msg));
   });
@@ -72,11 +74,12 @@ wss.on('connection', (ws) => {
 
     // object to store and send count of open server connections
     const numConnectionsOnClose = {
-      type: "countConnections",
-      count: connections
+      type: 'countConnections',
+      count: connections,
+      id: uuidv1()
       };
     console.log('Client disconnected');
-    console.log("connected clients", connections);
+    console.log('connected clients', connections);
     // send count of connections to the app
     wss.broadcast(JSON.stringify(numConnectionsOnClose));
   });
