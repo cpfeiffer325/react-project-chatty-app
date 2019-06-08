@@ -70,4 +70,4 @@ Header will display the count of connected users
 When the number of connected users changes, this count will be updated for all connected users
 
 ## Screenshot
-<img src='build/chatty-app-screenshot.png'>
+<img src='docs/chatty-app-screenshot.png'>
