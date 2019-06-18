@@ -20,8 +20,7 @@ class App extends Component {
 
   // updates the current user in the message feed and displays a notification to all open connections
   updateCurrentUser(event) {
-    if (event.charCode == 13 ) {
-      console.log('event: ',event.target);
+    if (event.charCode === 13 ) {
       const oldname = this.state.currentUser.name;
       this.setState(
         {currentUser: {name: event.target.value}}
@@ -37,8 +36,7 @@ class App extends Component {
 
   // updates the message feed with new inputs from any open connection
   postMessage(event) {
-    if (event.charCode == 13 ) {
-      console.log('event: ',event.target);
+    if (event.charCode === 13 ) {
       const newMessage = {
         type: 'postMessage',
         id: this.state.messages.length + 1,
@@ -56,15 +54,11 @@ class App extends Component {
     this.socket = new WebSocket('ws://localhost:3001');
 
     this.socket.onopen = () => {
-      console.log('connected to the server');
-
       this.socket.onmessage = (event) => {
-        console.log(event.data);
 
         // The socket event data is encoded as a JSON string.
         // This line turns it into an object
         const incomingEvent = JSON.parse(event.data);
-        console.log(incomingEvent);
       
         switch(incomingEvent.type) {
           case 'incomingMessage':

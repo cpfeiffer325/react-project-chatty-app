@@ -29,7 +29,6 @@ wss.broadcast = function broadcast(data) {
 // When a client connects they are assigned a socket, represented by
 // the ws parameter in the callback.    
 wss.on('connection', (ws) => {
-  console.log('Client connected');
   connections++;
 
   // object to store and send count of open server connections
@@ -40,7 +39,6 @@ wss.on('connection', (ws) => {
   };
   
   // send object with number of connections to app for all users
-  console.log('connected clients', connections);
   wss.broadcast(JSON.stringify(numConnections));
 
   ws.on('message', (event) => {
@@ -52,13 +50,11 @@ wss.on('connection', (ws) => {
         // handle incoming message
         msg.type = 'incomingMessage';
         msg.id = uuidv1();
-        console.log(`${msg.username} said ${msg.content}`);
         break;
       case 'postNotification':
         // handle incoming notification
         msg.type = 'incomingNotification';
         msg.id = uuidv1();
-        console.log(`${msg.content}`);
         break;
       default:
         // show an error in the console if the message type is unknown
@@ -78,8 +74,6 @@ wss.on('connection', (ws) => {
       count: connections,
       id: uuidv1()
       };
-    console.log('Client disconnected');
-    console.log('connected clients', connections);
     // send count of connections to the app
     wss.broadcast(JSON.stringify(numConnectionsOnClose));
   });
